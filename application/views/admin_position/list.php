@@ -1,3 +1,19 @@
+<script type="text/javascript">
+<?php
+//foreach($list as $row_js): 
+?>
+
+
+function upload_file(id, value, type){
+    //alert(id+"_"+value);
+    window.location.href = "<?= site_url() ?>admin_position/upload_file/"+id+"/"+value+"/"+type;
+}
+<?php
+//endforeach;
+?>
+
+</script>
+
 <?php
 if(isset($_GET['did']) && $_GET['did']==1){
 
@@ -33,7 +49,10 @@ if(isset($_GET['did']) && $_GET['did']==1){
                                                 <th width="5%">No</th>
                                                 <th>Name</th>
                                                 <th>Scope</th>
-                                                <th>Description</th>
+                                                <!--<th>Description</th>-->
+                                                <th>Test 1</th>
+                                                <th>Test 2</th>
+                                                <th>Test 3</th>
                                                 <th>Config</th>
                                             </tr>
                                         </thead>
@@ -46,7 +65,79 @@ if(isset($_GET['did']) && $_GET['did']==1){
                                                
                                                 <td><?= $row['position_name']?></td>
                                                 <td><?= $row['scope_name']?></td>
-                                                <td><?= $row['position_description']?></td>
+                                                <!--<td><?= $row['position_description']?></td>-->
+                                                <td>
+                                                
+
+                                                <form action="<?= site_url() ?>admin_position/upload_file/1/<?= $row['position_id'] ?>" enctype="multipart/form-data" method="POST">
+                                                
+                                                <?php
+                                                if($row['position_file1']){
+                                                    $upload_name = "Change";
+                                                ?>
+                                                 <a download href="<?= site_url() ?>assets/admin/file/<?= $row['position_file1'] ?>" class="btn btn-success" ><i class="fa fa-download"></i></a>
+
+                                                <?php
+                                                }else{
+                                                    $upload_name = "Upload";
+                                                }
+                                                ?>
+
+                                                 <div class="fileUpload btn btn-primary">
+                                                        <span><?= $upload_name ?></span>
+                                                        <input id="i_uploadBtn" name="i_uploadBtn" type="file" class="upload" onchange="form.submit()"/>
+                                                    </div>
+                                                   
+                                                </form>
+
+                                                </td>
+                                                <td>
+                                                    
+                                                    <form action="<?= site_url() ?>admin_position/upload_file/2/<?= $row['position_id'] ?>" enctype="multipart/form-data" method="POST">
+                                                
+                                                    <?php
+                                                    if($row['position_file2']){
+                                                        $upload_name = "Change";
+                                                    ?>
+                                                      <a download href="<?= site_url() ?>assets/admin/file/<?= $row['position_file2'] ?>" class="btn btn-success" ><i class="fa fa-download"></i></a>
+
+                                                    <?php
+                                                    }else{
+                                                        $upload_name = "Upload";
+                                                    }
+                                                    ?>
+
+                                                    <div class="fileUpload btn btn-primary">
+                                                        <span><?= $upload_name ?></span>
+                                                        <input id="i_uploadBtn" name="i_uploadBtn" type="file" class="upload" onchange="form.submit()"/>
+                                                    </div>
+                                                   
+                                                </form>
+
+                                                </td>
+                                                <td>
+                                                    <form action="<?= site_url() ?>admin_position/upload_file/3/<?= $row['position_id'] ?>" enctype="multipart/form-data" method="POST">
+                                                
+                                                    <?php
+                                                    if($row['position_file3']){
+                                                        $upload_name = "Change";
+                                                    ?>
+                                                 <a download href="<?= site_url() ?>assets/admin/file/<?= $row['position_file3'] ?>" class="btn btn-success" ><i class="fa fa-download"></i></a>
+
+                                                    <?php
+                                                    }else{
+                                                        $upload_name = "Upload";
+                                                    }
+                                                    ?>
+
+                                                    <div class="fileUpload btn btn-primary">
+                                                        <span><?= $upload_name ?></span>
+                                                        <input id="i_uploadBtn" name="i_uploadBtn" type="file" class="upload" onchange="form.submit()"/>
+                                                    </div>
+                                                   
+                                                </form>
+
+                                                </td>
                                                 <td style="text-align:center;">
 
                                                     <a href="<?= site_url() ?>admin_position/form/<?= $row['position_id']?>" class="btn btn-default" ><i class="fa fa-pencil"></i></a>
@@ -65,7 +156,7 @@ if(isset($_GET['did']) && $_GET['did']==1){
                                         </tbody>
                                           <tfoot>
                                             <tr>
-                                                <td colspan="5"><a href="<?= $data_head['add_button'] ?>" class="btn btn-primary " >Add</a></td>
+                                                <td colspan="7"><a href="<?= $data_head['add_button'] ?>" class="btn btn-primary " >Add</a></td>
                                                
                                             </tr>
                                         </tfoot>

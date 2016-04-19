@@ -8,7 +8,7 @@ class Admin_user extends CI_Controller {
 		$this->load->library('session');
 		$this->load->library('access');
 
-		$this->session->set_userdata('menu_active', 1);
+		$this->session->set_userdata('menu_active', 4);
 		
 		$logged_admin = $this->session->userdata('logged_admin');
 		if($logged_admin == ""){

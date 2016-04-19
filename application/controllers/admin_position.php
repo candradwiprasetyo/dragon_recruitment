@@ -88,6 +88,35 @@ class Admin_position extends CI_Controller {
 		
 		
 	}
+
+	public function upload_file($type, $id) {
+		
+		$file_name	 				= $this->session->userdata('user_id')."_".time()."_".$_FILES['i_uploadBtn']['name'];
+
+		 // simpan di table
+		switch ($type) {
+			case '1': $data['position_file1'] = $file_name; $position_file = "position_file1"; break;
+			case '2': $data['position_file2'] = $file_name; $position_file = "position_file2"; break;
+			case '3': $data['position_file3'] = $file_name; $position_file = "position_file3"; break;
+			
+		}
+
+		$get_img = $this->admin_position_model->get_img('positions', $position_file, ' position_id = '.$id);
+		
+		if($get_img){
+			unlink("assets/admin/file/".$get_img);
+		}
+
+		move_uploaded_file($_FILES['i_uploadBtn']['tmp_name'], "assets/admin/file/".$this->session->userdata('user_id')."_".time()."_".$_FILES['i_uploadBtn']['name']);
+		
+
+		$this->admin_position_model->update($data, $id);
+		redirect('admin_position/?did=2');
+		
+		
+		
+		
+	}
 	
 	public function delete($id){
 		

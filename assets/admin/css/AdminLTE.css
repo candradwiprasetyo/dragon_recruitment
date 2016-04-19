@@ -2608,7 +2608,7 @@ Component: timeline
 .skin-blue .sidebar > .sidebar-menu > li.active > a {
   color: #fff;
   background:#303949;
-  border-left:5px solid #00a65a;
+  border-left:5px solid #477CBD;
 }
 .skin-blue .sidebar > .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
@@ -2975,4 +2975,19 @@ Component: timeline
   margin-bottom:10px;
   margin-left:auto;
   margin-right:auto;
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
 }
