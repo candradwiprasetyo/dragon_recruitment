@@ -31,8 +31,9 @@ if(isset($_GET['did']) && $_GET['did']==1){
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
+                                                <th>Photo</th>
                                                 <th>Name</th>
-                                                
+                                                <th>Email</th>
                                                 <th>Config</th>
                                             </tr>
                                         </thead>
@@ -42,13 +43,13 @@ if(isset($_GET['did']) && $_GET['did']==1){
 										   foreach($list as $row): ?>
                                             <tr>
                                                 <td><?= $no?></td>
-                                               
-                                                <td><?= $row['allergy_name']?></td>
-                                             
+                                                <td><img src="<?= base_url() ?>assets/admin/img/user/<?= $row['user_img']?>" width="50"></td>
+                                                <td><?= $row['user_name']?></td>
+                                                <td><?= $row['user_email']?></td>
                                                 <td style="text-align:center;">
 
-                                                    <a href="<?= site_url() ?>admin_allergy/form/<?= $row['allergy_id']?>" class="btn btn-default" ><i class="fa fa-pencil"></i></a>
-                                                    <a href="javascript:void(0)" onclick="confirm_delete(<?= $row['allergy_id']; ?>, '<?= site_url().'admin_allergy/delete/'; ?>')" class="btn btn-default" ><i class="fa fa-trash-o"></i></a>
+                                                    <a href="<?= site_url() ?>admin_user/form/<?= $row['user_id']?>" class="btn btn-default" ><i class="fa fa-pencil"></i></a>
+                                                    <a href="javascript:void(0)" onclick="confirm_delete(<?= $row['user_id']; ?>, '<?= site_url().'admin_user/delete/'; ?>')" class="btn btn-default" ><i class="fa fa-trash-o"></i></a>
 
                                                 </td> 
                                             </tr>
@@ -63,7 +64,7 @@ if(isset($_GET['did']) && $_GET['did']==1){
                                         </tbody>
                                           <tfoot>
                                             <tr>
-                                                <td colspan="3"><a href="<?= $data_head['add_button'] ?>" class="btn btn-primary " >Add</a></td>
+                                                <td colspan="5"><a href="<?= $data_head['add_button'] ?>" class="btn btn-primary " >Add</a></td>
                                                
                                             </tr>
                                         </tfoot>

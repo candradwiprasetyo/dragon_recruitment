@@ -7,9 +7,9 @@
                         	 <?php
                             
 							if($data_user['user_img']==""){
-								$img = base_url()."assets/images/user/default.jpg";
+								$img = base_url()."assets/admin/img/user/default.png";
 							}else{
-								$img = base_url()."assets/images/user/".$data_user['user_img'];
+								$img = base_url()."assets/admin/img/user/".$data_user['user_img'];
 							}
 							?>
                             <img src="<?= $img ?>" class="img-circle" alt="User Image" />
@@ -33,7 +33,7 @@
                     <li class="treeview <?php if($this->session->userdata('user_id') == 1){ echo "active"; } ?>" >
                       <a href="#">
                         <i class="fa fa-list"></i>
-                        <span>Data Master <?= $this->session->userdata('user_id') ?></span>
+                        <span>Data Master</span>
                         <i class="fa fa-angle-left pull-right"></i>
                       </a>
                       <ul class="treeview-menu" style="display: none;">

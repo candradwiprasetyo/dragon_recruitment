@@ -42,8 +42,8 @@
                                 </div><!-- /.box-body -->
                                 
                                   <div class="box-footer">
-                                <input class="btn btn-success" type="submit" value="Save"/>
-                                <a href="<?= $data_head['close_button']?>" class="btn btn-success" >Close</a>
+                                <input class="btn btn-primary" type="submit" value="Save"/>
+                                <a href="<?= $data_head['close_button']?>" class="btn btn-primary" >Close</a>
                              
                              </div>
                             

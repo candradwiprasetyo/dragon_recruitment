@@ -128,9 +128,9 @@
                                 <?php
                             
 							if($data_user['user_img']==""){
-								$img = base_url()."assets/images/user/default.jpg";
+								$img = base_url()."assets/admin/img/user/default.png";
 							}else{
-								$img = base_url()."assets/images/user/".$data_user['user_img'];
+								$img = base_url()."assets/admin/img/user/".$data_user['user_img'];
 							}
 							?>
                                     <img src="<?= $img ?>" class="img-circle" alt="User Image" />
@@ -149,7 +149,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="edit_admin.php?page=form" class="btn btn-default btn-flat"  style="height:40px !important; padding-top:10px !important">Profile</a>
+                                        <a href="<?= site_url('edit_admin') ?>" class="btn btn-default btn-flat"  style="height:40px !important; padding-top:10px !important">Profile</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="<?= site_url('admin/logout') ?>" class="btn btn-default btn-flat" style="height:40px !important; padding-top:10px !important">Sign out</a>

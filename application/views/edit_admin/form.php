@@ -1,5 +1,11 @@
 <!-- Content Header (Page header) -->
-        
+<?php
+if(isset($_GET['did']) && $_GET['did']==2){
+
+    $this->access->get_message(2);
+
+}
+?>           
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
@@ -24,38 +30,40 @@
                                         <div class="col-md-9">
                                       
                                       
-                                         <div class="form-group">
-                                         <label>Title</label>
-                                    <input required type="text" name="i_name" class="form-control" placeholder="member title" value="<?= @$data['member_name'] ?>" title="Fill member title"/>
-                                			</div>
-                                         <div class="form-group">
-                                            <label>Description</label>
-                                           <textarea id="editor" name="editor" rows="10" cols="80">
-                                            <?php
-                                            echo @$data['member_desc']
-                                            ?>
-                                        </textarea>
+                                        <div class="form-group">
+                                          <label>Name</label>
+                                          <input required type="text" name="i_name" class="form-control" placeholder="" value="<?= @$data['user_name'] ?>" title="Fill user name"/>
                                         </div>
-                                      
-                                        </div>
-                                      
                                         
- 										<div class="col-md-3">
-                                          <div class="form-group">
-                                         <label>Images</label>
-                                         <?php
-                                        if($data['row_id']){
-										?>
-                                        <br />
-                                        <img src="<?= base_url(); ?>assets/images/member/<?= $data['member_img']?>" style="width:100%;"/>
-                                        <?php
-										}
-										?>
-                                           <input type="file" name="i_img" id="i_img" <?php if(!$data['row_id']){ echo " required "; } ?>title="fill member img" />
+                                        <div class="form-group">
+                                          <label>Email</label>
+                                          <input required type="text" name="i_email" class="form-control" placeholder="" value="<?= @$data['user_email'] ?>" title="Fill user email"/>
                                         </div>
+
+                                        <div class="form-group">
+                                          <label>Password</label>
+                                          <input type="password" name="i_password" class="form-control" placeholder="" value="" title="Fill user password"/>
+                                        </div>
+                                      
+                                        </div>
+                                      
+                                        <div class="col-md-3">
+                                      
+                                      
+                                        <div class="form-group">
+                                          <label>Photo</label>
+                                          <img src="<?= base_url() ?>assets/admin/img/user/<?= @$data['user_img'] ?>" width="100%">
+                                          <input type="file" name="i_img"></input>
+                                        </div>
+                                        
+                                       
+                                      
+                                        </div>
+                                        
+ 										
                                     
                                       
-                                        </div>
+                                        
                                         <div style="clear:both;"></div>
                                      
                                 </div><!-- /.box-body -->

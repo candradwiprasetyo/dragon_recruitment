@@ -64,7 +64,7 @@ if(isset($_GET['did']) && $_GET['did']==1){
                                         </tbody>
                                           <tfoot>
                                             <tr>
-                                                <td colspan="4"><a href="<?= $data_head['add_button'] ?>" class="btn btn-success " >Add</a></td>
+                                                <td colspan="4"><a href="<?= $data_head['add_button'] ?>" class="btn btn-primary " >Add</a></td>
                                                
                                             </tr>
                                         </tfoot>
