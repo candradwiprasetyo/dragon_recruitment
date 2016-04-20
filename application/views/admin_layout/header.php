@@ -31,8 +31,11 @@
         <link href="<?= base_url() ?>assets/admin/css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet"/>
 
        <!-- lookup -->
-      <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/admin/css/lookup/bootstrap-select.css">
-      
+       <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/admin/css/lookup/bootstrap-select.css">
+        
+         <!-- export -->
+       <link href="<?= base_url() ?>assets/admin/css/export/buttons.dataTables.min.css" rel="stylesheet">
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>

@@ -34,6 +34,12 @@ class Access
 					'creative_id' => $result['creative_id']
 		);
 	}
+
+	public function format_money($money){
+		$money = number_format($money, 0);
+		
+		return "Rp. ".$money;
+	}
 	
 	public function format_date($date){
 		$phpdate = strtotime( $date );

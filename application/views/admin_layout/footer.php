@@ -13,12 +13,43 @@
 </html>
 
        
-
+<!-- export -->
+      <script src="<?= base_url() ?>assets/admin/js/export/dataTables.buttons.min.js"></script>
+      <script src="<?= base_url() ?>assets/admin/js/export/buttons.flash.min.js"></script>
+      <script src="<?= base_url() ?>assets/admin/js/export/jszip.min.js"></script>
+      <script src="<?= base_url() ?>assets/admin/js/export/pdfmake.min.js"></script>
+      <script src="<?= base_url() ?>assets/admin/js/export/vfs_fonts.js"></script>
+      <script src="<?= base_url() ?>assets/admin/js/export/buttons.html5.min.js"></script>
+      <script src="<?= base_url() ?>assets/admin/js/export/buttons.print.min.js"></script>
 
  <!-- page script -->
         <script type="text/javascript">
             $(function() {
-                $("#example1").dataTable();
+                $('#example1').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    
+                    {
+                        extend: 'pageLength'
+                    },
+                    {
+                        extend: 'copy'
+                    },
+                    {
+                        extend: 'excel'
+                    },
+                    {
+                        extend: 'pdf'
+                    },
+                    {
+                        extend: 'csv'
+                    }
+                ],
+                lengthMenu: [
+                    [ 10, 25, 50, -1 ],
+                    [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+                ]
+            } );
                 $('#example2').dataTable({
                     "bPaginate": true,
                     "bLengthChange": false,

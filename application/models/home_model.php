@@ -54,17 +54,7 @@ class Home_model extends CI_Model{
 		return $result['feature_img'];
 	}
 	
-	function get_project_id($limit)
-	{
-		$sql = "select feature_id from features  order by feature_id limit $limit
-				";
-		
-		$query = $this->db->query($sql);
-		
-		$result = null;
-		foreach ($query->result_array() as $row) $result = ($row);
-		return $result['feature_id'];
-	}
+	
 
 	function get_exist_username($username)
 	{

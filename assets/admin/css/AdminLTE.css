@@ -2991,3 +2991,36 @@ Component: timeline
     opacity: 0;
     filter: alpha(opacity=0);
 }
+
+
+/* export button style */
+
+button.dt-button, div.dt-button, a.dt-button{
+  display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.application_photo{
+  width: 100%;
+}
+
+.application_label{
+  color:#999;
+}
+
