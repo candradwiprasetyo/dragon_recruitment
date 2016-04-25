@@ -43,11 +43,25 @@ class Access
 	
 	public function format_date($date){
 		$phpdate = strtotime( $date );
-		$new_date = date( 'd M Y', $phpdate );
+		$new_date = date( 'd F Y', $phpdate );
+		
+		return $new_date;
+	}
+
+	public function format_date_simple($date){
+		$phpdate = strtotime( $date );
+		$new_date = date( 'd/m/Y', $phpdate );
 		
 		return $new_date;
 	}
 	
+	public function format_status($data){
+		$data = str_replace('<a>', '', $data);
+		$data = str_replace('</a>', '', $data);
+		
+		return $data;
+	}
+
 	public function format_real_date($date){
 
 	$date = explode("-", $date);

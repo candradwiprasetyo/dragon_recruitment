@@ -37,6 +37,13 @@ class Admin_application extends CI_Controller {
 			$this->load->view('admin_layout/footer'); 
 	
  	}
+
+ 	public function email() {
+		
+			
+			$this->load->view('admin_application/email_notification');
+	
+ 	}
  	
 	public function index_manual() {
 		
@@ -120,6 +127,18 @@ class Admin_application extends CI_Controller {
 			$data_head['title'] = "View application ";
 			$data_head['action'] = site_url().'admin_application/form_action/'.$id;
 			$data_head['close_button'] = site_url().'admin_application/';
+
+			$data_head['sent_test1'] = site_url().'admin_application/update_status/5/'.$id;
+			$data_head['sent_test2'] = site_url().'admin_application/update_status/6/'.$id;
+			$data_head['sent_test3'] = site_url().'admin_application/update_status/7/'.$id;
+			$data_head['sent_psikologi'] = site_url().'admin_application/update_status/8/'.$id;
+			
+			$data_head['rejected1'] = site_url().'admin_application/update_status/2/'.$id;
+			$data_head['rejected2'] = site_url().'admin_application/update_status/3/'.$id;
+			$data_head['save_draft'] = site_url().'admin_application/update_status/4/'.$id;
+
+			$data_head['interview'] = site_url().'admin_application/update_status/9/'.$id;
+			$data_head['accepted'] = site_url().'admin_application/update_status/10/'.$id;
 			
 			$data_user = array();
 			$result_user = $this->access->get_data_user_admin($this->session->userdata('user_id'));
@@ -144,79 +163,112 @@ class Admin_application extends CI_Controller {
 					}
 				}
 			}
+
+			$list_education = $this->admin_application_model->list_education($id);
+			$list_work_experience = $this->admin_application_model->list_work_experience($id);
+			$list_tool = $this->admin_application_model->list_tool($id);
+			$list_hard_skill = $this->admin_application_model->list_hard_skill($id);
+			$list_soft_skill = $this->admin_application_model->list_soft_skill($id);
+			$list_history = $this->admin_application_model->list_history($id);
+
+			
+
 			
 			
 			$this->load->view('admin_layout/header', array( 'data_head' => $data_head, 'data_user' => $data_user));
-			$this->load->view('admin_application/form', array('data_head' => $data_head, 'data' => $data));
+			$this->load->view('admin_application/form', 
+				array(
+					'data_head' => $data_head, 
+					'data' => $data, 
+					'list_education' => $list_education,
+					'list_work_experience' => $list_work_experience,
+					'list_tool' => $list_tool,
+					'list_hard_skill' => $list_hard_skill,
+					'list_soft_skill' => $list_soft_skill,
+					'list_history' => $list_history
+				));
 			$this->load->view('admin_layout/footer'); 
 		
  	}
-	
-	public function form_action($id = 0) {
+
+	public function update_status($status_id, $id = 0) {
 		
 		
 		 // simpan di table
-		$data['application_name']	 				= $this->input->post('i_name');
-		$data['application_scope_id']	 			= $this->input->post('i_scope_id');
-		$data['application_description'] 			= $this->input->post('i_desc');
-		
-		
-		if($id){
-			$this->admin_application_model->update($data, $id);
-			redirect('admin_application/?did=2');
-		}else{
-			$this->admin_application_model->create($data);
-			redirect('admin_application/?did=1');
-		}
-		
-		
-		
-	}
+		$data_history['application_history_date']	 		= date("Y-m-d");
+		$data_history['basic_info_id']	 					= $id;
 
-	public function upload_file($type, $id) {
+		$data_history['application_history_status_id'] = $status_id; 
+		$data['basic_info_status_id'] = $status_id; 	
+
+		$email = $this->admin_application_model->get_email($id);
 		
-		$file_name	 				= $this->session->userdata('user_id')."_".time()."_".$_FILES['i_uploadBtn']['name'];
+		// create history
+		$this->admin_application_model->create_history($data_history);
 
-		 // simpan di table
-		switch ($type) {
-			case '1': $data['application_file1'] = $file_name; $application_file = "application_file1"; break;
-			case '2': $data['application_file2'] = $file_name; $application_file = "application_file2"; break;
-			case '3': $data['application_file3'] = $file_name; $application_file = "application_file3"; break;
-			
-		}
-
-		$get_img = $this->admin_application_model->get_img('applications', $application_file, ' application_id = '.$id);
-		
-		if($get_img){
-			unlink("assets/admin/file/".$get_img);
-		}
-
-		move_uploaded_file($_FILES['i_uploadBtn']['tmp_name'], "assets/admin/file/".$this->session->userdata('user_id')."_".time()."_".$_FILES['i_uploadBtn']['name']);
-		
-
+		// update status terakhir di basic_infos
 		$this->admin_application_model->update($data, $id);
-		redirect('admin_application/?did=2');
-		
-		
-		
-		
-	}
+
+		$this->sendMail($status_id, $email, $id);
+
+		redirect('admin_application/form/'.$id);
 	
-	public function delete($id){
-		
-		$delete = $this->admin_application_model->delete($id);
-		
-		
-		if($delete == 2){
-			redirect('admin_application/?err=4');
-		}else{
-			redirect('admin_application/?did=3');
-		}
 	}
 
+	function sendMail($status_id, $email, $basic_info_id){
+			
+			$ci = get_instance();
+	        $ci->load->library('email');
+	        $config['protocol'] = "smtp";
+	        $config['smtp_host'] = "ssl://smtp.gmail.com";
+	        $config['smtp_port'] = "465";
+	        $config['smtp_user'] = "candradwiprasetyo@gmail.com";
+	        $config['smtp_pass'] = "cm3l0n pc";
+	        
+	        $config['charset'] = "utf-8";
+	        $config['newline'] = "\r\n";
+	        $config['mailtype'] = 'html';
+	        
+			
+	        $ci->email->initialize($config);
+	 		
+			$data = array();
+			$list = array();
+
+			$result = $this->admin_application_model->get_data_status($basic_info_id);
+			
+			if($result){
+				$data  = $result;
+			}	
+			
+	        $ci->email->from('candradwiprasetyo@gmail.com', 'Admin Dragon Capital Center');
+	        $ci->email->reply_to('candradwiprasetyo@gmail.com', 'Admin  Dragon Capital Center');
+	        $ci->email->to($email);
+	        $ci->email->subject('Application Dragon Capital Center');
+	       
+	        
+	        if($status_id == 5){
+	        	//$ci->email->attach('/Applications/XAMPP/htdocs/dragon_recruitment/assets/admin/file/1_1461046213_Dragon recruitment.pages');
+	        	$ci->email->attach($_SERVER["DOCUMENT_ROOT"].'/dragon_recruitment/assets/admin/file/'.$data['position_file1']);
+	        }else if($status_id == 6){
+	        	$ci->email->attach($_SERVER["DOCUMENT_ROOT"].'/dragon_recruitment/assets/admin/file/'.$data['position_file2']);
+	        }else if($status_id == 7){
+	        	$ci->email->attach($_SERVER["DOCUMENT_ROOT"].'/dragon_recruitment/assets/admin/file/'.$data['position_file3']);
+	        }
+	       
+	        $message=$this->load->view('admin_application/email_notification', array('data' => $data, 'list' => $list), TRUE);
+			$ci->email->message($message);
+			if ($this->email->send()) {
+	            //echo 'Email sent.';
+	        } else {
+	            //show_error($this->email->print_debugger());
+	        }
+			
+			  
+			    
+	}
+
 	
-
-
 
 	
 }

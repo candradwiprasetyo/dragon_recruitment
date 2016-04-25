@@ -31,43 +31,37 @@ if(isset($_GET['did']) && $_GET['did']==1){
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
-                                                <th>Date</th>
                                                 <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Email</th>
-                                                <th>Phone Number</th>
-                                                <th>Status</th>
+                                                
                                                 <th>Config</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                            <?php 
-                                           $no = 1;
-                                           foreach($list as $row): ?>
+										   $no = 1;
+										   foreach($list as $row): ?>
                                             <tr>
                                                 <td><?= $no?></td>
-                                                <td><?= $this->access->format_date_simple($row['basic_info_date']) ?></td>
-                                                <td><?= $row['basic_info_first_name']." ".$row['basic_info_last_name'] ?></td>
-                                                <td><?= $row['position_name']?></td>
-                                                <td><?= $row['basic_info_email']?></td>
-                                                <td><?= $row['basic_info_phone_number']?></td>
-                                                <td><span class="label label-success"><?= $this->access->format_status($row['status_name']); ?></span></td>
+                                               
+                                                <td><?= $this->access->format_status($row['status_name'])   ?></td>
+                                             
                                                 <td style="text-align:center;">
 
-                                                    <a href="<?= site_url() ?>admin_application/form/<?= $row['basic_info_id']?>" class="btn btn-default" >Process</a>
+                                                    <a href="<?= site_url() ?>admin_status/form/<?= $row['status_id']?>" class="btn btn-default" >Email Content</a>
                                                    
+
                                                 </td> 
                                             </tr>
                                            <?php 
-                                           $no++;
-                                           endforeach; 
-                                           ?>
+										   $no++;
+										   endforeach; 
+										   ?>
                                             
 
                                            
                                           
                                         </tbody>
-                                          
+                                         
                                     </table>
 
                                 </div><!-- /.box-body -->

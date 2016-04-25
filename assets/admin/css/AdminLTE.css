@@ -217,7 +217,7 @@ img {
   background-color: #f39c12 !important;
 }
 .bg-aqua {
-  background-color: #00c0ef !important;
+  background-color: #00A7D0 !important;
 }
 .bg-blue {
   background-color: #0073b7 !important;
@@ -1709,7 +1709,7 @@ Component: timeline
 --------------------
 */
 .timeline {
-  margin: 0 0 30px 0;
+  margin: 0 0 0px 0;
   padding: 0;
   list-style: none;
 }
@@ -1717,7 +1717,7 @@ Component: timeline
   content: '';
   position: absolute;
   top: 0px;
-  bottom: 0;
+  bottom: 20px;
   width: 5px;
   background: #ddd;
   left: 45px;
@@ -1741,7 +1741,6 @@ Component: timeline
   clear: both;
 }
 .timeline > li > .timeline-item {
-  margin-top: 10px;
   border: 0px solid #dfdfdf;
   background: #fff;
   color: #555;
@@ -1761,7 +1760,7 @@ Component: timeline
   color: #555;
   border-bottom: 1px solid #f4f4f4;
   padding: 5px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.1;
 }
 .timeline > li > .timeline-item > .timeline-header > a {
@@ -1787,7 +1786,7 @@ Component: timeline
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   width: 30px;
   height: 30px;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 30px;
   position: absolute;
   color: #666;
@@ -3024,3 +3023,121 @@ button.dt-button, div.dt-button, a.dt-button{
   color:#999;
 }
 
+.reason_join{
+  text-align: center;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+/* widget adminlte2 */
+
+.box-widget {
+    border: none;
+    position: relative;
+}
+
+.widget-user .widget-user-header {
+    padding: 20px;
+    height: 130px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.widget-user .widget-user-username {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 25px;
+    font-weight: 100;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    color: #fff;
+}
+
+.widget-user .widget-user-desc {
+    margin-top: 0;
+}
+
+.widget-user .widget-user-image {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.box .border-right {
+    border-right: 1px solid #eee;
+}
+
+.widget-user .box-footer_new {
+    padding-top: 60px;
+    background: #fff;
+    padding-bottom: 10px;
+}
+
+.description-block {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.description-block>.description-header {
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+}
+
+.description-block>.description-text {
+    font-size: 12px;
+    color: #999;
+}
+
+.widget-user .widget-user-image>img {
+    width: 110px;
+    height: auto;
+    border: 3px solid #fff;
+}
+.img-circle {
+    border-radius: 50%;
+}
+
+.widget-user-2 .widget-user-header {
+    padding: 20px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    height: 160px;
+}
+
+.widget-user-2 .widget-user-image>img {
+    width: 120px;
+    height: auto;
+    float: left;
+    border: 3px solid #fff;
+}
+
+.widget-user-2 .widget-user-username, .widget-user-2 .widget-user-desc {
+    margin-left: 75px;
+}
+.widget-user-2 .widget-user-username {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 25px;
+    font-weight: 300;
+}
+
+.widget-user-2 .widget-user-username, .widget-user-2 .widget-user-desc {
+    margin-left: 160px;
+}
+.widget-user-2 .widget-user-desc {
+    margin-top: 0;
+}
+
+
+.toggle_dashboard{
+  float: right;
+  margin-top: 5px;
+  margin-right: 5px;
+}

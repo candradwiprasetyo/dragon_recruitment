@@ -39,15 +39,16 @@
 
                                 <div class="inner">
                                     <h3>
-                                        150
+                                        <?= $data['total_application'] ?>
                                     </h3>
                                     <p>
-                                        Number of applicants
+                                       Number of applicants
+                                        
                                     </p>
                                 </div>
                                 
-                                <a href="#" class="small-box-footer">
-                                    
+                                <a class="small-box-footer">
+                                    <?= $this->admin_model->get_format_param1_type($this->session->userdata('param1_type')) ?>
                                 </a>
                                  
                             </div>
@@ -273,6 +274,7 @@
         <script src="<?= site_url() ?>assets/admin/js/plugins/morris/morris.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+                  
             $(function() {
               
                 $('#daterange-btn').daterangepicker(
@@ -289,12 +291,25 @@
                             endDate: moment()
                         },
                 function(start, end) {
-                    var date_value = (start.format('DD/MM/YYYY') + '-' + end.format('DD/MM/YYYY'));
-                    window.location.href = 'admin_application/'
+                    var date_value = (start.format('YYYY-MM-DD') + '_' + end.format('YYYY-MM-DD'));
+                    /*
+                     var interest = $('.ranges ul').find('li.active');
+                    console.dir($('.ranges ul'));
+                        alert(interest);*/
+
+                        var target = event.target || event.srcElement;
+                        param1_type = (event.target.innerHTML);
+                    
+
+                    //alert(ranges());
+                    window.location.href = '<?= site_url() ?>admin/search/1/'+ date_value+'/'+param1_type;
                 }
                 );
 
+
            
             });
+
+
         </script>
         

@@ -17,98 +17,33 @@ class Admin_model extends CI_Model{
 		return $result; 
 	}
 	
-	function save_admin($data, $id){
-
-		$this->db->trans_start();
-		$this->db->where('user_id', $id);
-		$this->db->update('creatives', $data);
 	
-		$this->db->trans_complete();
-		return $id;
-	}
-	
-	function save_detail($data){
-
-		$this->db->trans_start();
-		$this->db->insert('admin_detail_categories', $data);
-		$id = $this->db->insert_id();
-		
-		$this->db->trans_complete();
-		return $id;
-	}
-
-	
-	function delete_detail($user_id){
-
-		$this->db->trans_start();
-		$this->db->where('user_id', $user_id);
-		$this->db->delete('admin_detail_categories');
-		$this->db->trans_complete();
-		
-	}
-	
-		function get_admin_follower($creative_id)
+	function get_total_application($param)
 	{
-		$sql = "select count(tr_following_id) as jumlah 
-				from tr_following
-				where user_creative_id = '$creative_id' 
+		$param = explode("_", $param);
+		$date1 = $param[0];
+		$date2 = $param[1];
+		$sql = "SELECT count(basic_info_id) AS result				
+				FROM basic_infos
+				WHERE basic_info_date >= '$date1' AND basic_info_date <= '$date2'; 
 				";
-		
+
 		$query = $this->db->query($sql);
 		
 		$result = null;
 		foreach ($query->result_array() as $row) $result = ($row);
 		
-		$result['jumlah'] = ($result['jumlah']) ? $result['jumlah'] : 0;
-		return $result['jumlah'];
+		$result['result'] = ($result['result']) ? $result['result'] : 0;
+		return $result['result'];
 	}
-	
-	function get_admin_following($regular_id)
-	{
-		$sql = "select count(tr_following_id) as jumlah 
-				from tr_following
-				where user_regular_id = '$regular_id' 
-				";
-		
-		$query = $this->db->query($sql);
-		
-		$result = null;
-		foreach ($query->result_array() as $row) $result = ($row);
-		
-		$result['jumlah'] = ($result['jumlah']) ? $result['jumlah'] : 0;
-		return $result['jumlah'];
-	}
-	
-	function get_admin_view($creative_id)
-	{
-		$sql = "select count(pv_id) as jumlah 
-				from admin_views
-				where user_creative_id = '$creative_id' 
-				";
-		
-		$query = $this->db->query($sql);
-		
-		$result = null;
-		foreach ($query->result_array() as $row) $result = ($row);
-		
-		$result['jumlah'] = ($result['jumlah']) ? $result['jumlah'] : 0;
-		return $result['jumlah'];
-	}
-	
-	function get_admin_like($creative_id)
-	{
-		$sql = "select count(pl_id) as jumlah 
-				from admin_likes
-				where user_creative_id = '$creative_id' 
-				";
-		
-		$query = $this->db->query($sql);
-		
-		$result = null;
-		foreach ($query->result_array() as $row) $result = ($row);
-		
-		$result['jumlah'] = ($result['jumlah']) ? $result['jumlah'] : 0;
-		return $result['jumlah'];
-	}
+
+	public function get_format_param1_type($data){
+ 		$data = str_replace("%20", " ", $data);
+ 		if($data == 'Apply'){
+ 			$data = 'Custom Range';
+ 		}
+ 		return $data;
+
+ 	}
 	
 }

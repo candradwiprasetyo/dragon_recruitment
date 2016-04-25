@@ -31,7 +31,7 @@
                     <ul class="sidebar-menu">
 
 
-                         <li <?php if(isset($_SESSION['menu_active']) && $_SESSION['menu_active'] == 2){ echo "class='active'"; } ?>>
+                         <li <?php if($this->session->userdata('menu_active') == 5){ echo "class='active'"; } ?>>
                             <a href="<?= site_url('admin') ?>">
                                 <i class="fa fa-dashboard"></i>
                                 <span>Dashboard</span>
@@ -40,7 +40,7 @@
                             
                         </li>
 
-                    <li class="treeview <?php if($this->session->userdata('user_id') == 1){ echo "active"; } ?>" >
+                    <li class="treeview <?php if($this->session->userdata('menu_active') == 1){ echo "active"; } ?>" >
                       <a href="#">
                         <i class="fa fa-list"></i>
                         <span>Data Master</span>
@@ -55,10 +55,11 @@
                         <li><a href="<?= site_url('admin_allergy') ?>"><i class="fa fa-circle-o"></i>Allergy</a></li>
                         <li><a href="<?= site_url('admin_sport') ?>"><i class="fa fa-circle-o"></i>Sport</a></li>
                         <li><a href="<?= site_url('admin_computer') ?>"><i class="fa fa-circle-o"></i>Tools</a></li>
+                        <li><a href="<?= site_url('admin_status') ?>"><i class="fa fa-circle-o"></i>Status</a></li>
                       </ul>
                     </li>
                     
-                <li <?php if(isset($_SESSION['menu_active']) && $_SESSION['menu_active'] == 2){ echo "class='active'"; } ?>>
+                <li <?php if($this->session->userdata('menu_active') == 2){ echo "class='active'"; } ?>>
                             <a href="<?= site_url('admin_test_question') ?>">
                                 <i class="fa fa-circle"></i>
                                 <span>Psychological Test</span>
@@ -67,7 +68,7 @@
                             
                   </li>
 
-                    <li <?php if(isset($_SESSION['menu_active']) && $_SESSION['menu_active'] == 3){ echo "class='active'"; } ?>>
+                    <li <?php if($this->session->userdata('menu_active') == 3){ echo "class='active'"; } ?>>
                             <a href="<?= site_url('admin_application') ?>">
                                 <i class="fa fa-circle"></i>
                                 <span>Application</span>
@@ -80,7 +81,7 @@
                   
                  
                  
-                  <li <?php if(isset($_SESSION['menu_active']) && $_SESSION['menu_active'] == 4){ echo "class='active'"; } ?>>
+                  <li <?php if($this->session->userdata('menu_active') == 4){ echo "class='active'"; } ?>>
                             <a href="<?= site_url('admin_user') ?>">
                                 <i class="fa fa-users"></i>
                                 <span>User</span>

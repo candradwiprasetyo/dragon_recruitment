@@ -49,15 +49,39 @@
                     [ 10, 25, 50, -1 ],
                     [ '10 rows', '25 rows', '50 rows', 'Show all' ]
                 ]
+            } );$('#example2').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    
+                    {
+                        extend: 'pageLength'
+                    },
+                    {
+                        extend: 'copy'
+                    },
+                    {
+                        extend: 'excel'
+                    },
+                    {
+                        extend: 'pdf'
+                    },
+                    {
+                        extend: 'csv'
+                    }
+                ],
+                lengthMenu: [
+                    [ 10, 25, 50, -1 ],
+                    [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+                ]
             } );
-                $('#example2').dataTable({
+                /*$('#example2').dataTable({
                     "bPaginate": true,
                     "bLengthChange": false,
                     "bFilter": false,
                     "bSort": true,
                     "bInfo": true,
                     "bAutoWidth": false
-                });
+                });*/
 				$("#example3").dataTable();
 				$("#example4").dataTable();
  				$('#example_simple').dataTable({
