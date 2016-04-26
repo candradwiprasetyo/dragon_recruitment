@@ -1,7 +1,241 @@
-<!-- Morris charts -->
-<link href="<?= base_url() ?>assets/admin/css/morris/morris.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(function () {
+    // total application
+    $('#container1').highcharts({
+        title: {
+            text: ' ',
+            x: 20 //center
+        },
+        subtitle: {
+            text: ' ',
+            x: 20
+        },
 
-               
+        xAxis: {
+            categories: [
+                <?php
+                $date_now = date("Y-m-d");
+                $date_awal = date('Y-m-d', strtotime($date_now. ' - 9 days'));
+                
+                $data_x = '';
+                while(strtotime($date_awal) <= strtotime($date_now)){
+                    
+                    $data_x .= "'".$this->access->format_date($date_awal)."',";
+
+                    $date_awal = date("Y-m-d", strtotime("+1 day", strtotime($date_awal)));
+                }
+
+                echo substr($data_x, 0, -1);
+
+                ?>
+                ]
+        },
+        yAxis: {
+            title: {
+                text: ' '
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: ' data'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Total',
+            data: [<?php 
+                $date_now2 = date("Y-m-d");
+                $date_awal2 = date('Y-m-d', strtotime($date_now2. ' - 9 days'));
+
+                $data_x2 = '';
+                while(strtotime($date_awal2) <= strtotime($date_now2)){
+                    
+                    $data_x2 .= $this->admin_model->get_total_application_bydate($date_awal2).", ";
+
+                    $date_awal2 = date("Y-m-d", strtotime("+1 day", strtotime($date_awal2)));
+                }
+
+                echo substr($data_x2, 0, -1);
+                
+                ?>]
+        }]
+    });
+
+    // Top 10 position
+     $('#container2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                         enabled:false
+                     }
+        },
+        yAxis: {
+            title: {
+                text: ''
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.0f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b><br/>'
+        },
+
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [
+            <?php 
+            foreach($list_top_ten_position as $row_top_ten_position): ?>
+            {
+                name: '<?= $row_top_ten_position['position_name'] ?>',
+                y: <?= ($row_top_ten_position['jumlah']) ? $row_top_ten_position['jumlah'] : 0;  ?>
+            },
+            <?php 
+            endforeach; 
+            ?>
+            ]
+        }]
+        
+    });
+
+     // top 10 education
+     $('#container3').highcharts({
+        chart: {
+            type: 'pie',
+            options3d: {
+                enabled: true,
+                alpha: 45
+            }
+        },
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: ''
+        },
+        plotOptions: {
+            pie: {
+                innerSize: 100,
+                depth: 45
+            }
+        },
+        series: [{
+            name: 'Delivered amount',
+            data: [
+                <?php 
+                foreach($list_top_ten_education as $row_top_ten_education): ?>
+                ['<?= $row_top_ten_education['education_type_name'] ?>', <?= $row_top_ten_education['jumlah'] ?>],
+                <?php 
+                endforeach; 
+                ?>
+            ]
+        }]
+    });
+
+     // top 10 city
+     $('#container4').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                <?php 
+                foreach($list_top_ten_city as $row_top_ten_city): ?>
+                '<?= $row_top_ten_city['city_name'] ?>',
+                <?php 
+                endforeach; 
+                ?>
+                ],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' '
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: false
+                }
+            }
+        },
+        
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true,
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Total',
+            data: [
+             <?php 
+                foreach($list_top_ten_city as $row_top_ten_city2): ?>
+                <?= $row_top_ten_city2['jumlah']."," ?>
+                <?php 
+                endforeach; 
+                ?>
+            ]
+        }]
+    });
+});
+        </script>              
 
                 <!-- Main content -->
                 <section class="content">
@@ -24,15 +258,13 @@
                                         </div>  -->
 
                                         <div class="form-group">
-                                      
-                                        <div class="input-group">
-                                            <button class="btn btn-primary pull-left" id="daterange-btn">
-                                                <i class="fa fa-calendar"></i> 
-                                                <i class="fa fa-caret-down"></i>
-                                            </button>
+                                            <div class="input-group">
+                                                <button class="btn btn-primary pull-left" id="daterange-btn">
+                                                    <i class="fa fa-calendar"></i> 
+                                                    <i class="fa fa-caret-down"></i>
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div><!-- /.form group -->
-                                   
                                     </div>
 
                                      
@@ -48,7 +280,7 @@
                                 </div>
                                 
                                 <a class="small-box-footer">
-                                    <?= $this->admin_model->get_format_param1_type($this->session->userdata('param1_type')) ?>
+                                    <?= $this->admin_model->get_format_param_type($this->session->userdata('param1_type')) ?>
                                 </a>
                                  
                             </div>
@@ -56,57 +288,108 @@
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-green">
+                                <div class="toggle_dashboard">
+                                        <!--<div class="btn-group">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Today</a></li>
+                                                <li><a href="#">Does not fit the criteria</a></li>
+                                            </ul>
+                                        </div>  -->
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <button class="btn btn-success pull-left" id="daterange2-btn">
+                                                    <i class="fa fa-calendar"></i> 
+                                                    <i class="fa fa-caret-down"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <div class="inner">
-                                    <h3>
-                                        53<sup style="font-size: 20px">%</sup>
-                                    </h3>
+                                   <h4><?= $data['top_position'] ?>&nbsp;</h4>
                                     <p>
-                                        Bounce Rate
+                                        Top Position
                                     </p>
                                 </div>
-                                <div class="icon">
-                                    <i class="ion ion-stats-bars"></i>
-                                </div>
+                                
                                 <a href="#" class="small-box-footer">
-                                    More info <i class="fa fa-arrow-circle-right"></i>
+                                   <?= $this->admin_model->get_format_param_type($this->session->userdata('param2_type')) ?>
                                 </a>
                             </div>
                         </div><!-- ./col -->
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-yellow">
+                                <div class="toggle_dashboard">
+                                        <!--<div class="btn-group">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Today</a></li>
+                                                <li><a href="#">Does not fit the criteria</a></li>
+                                            </ul>
+                                        </div>  -->
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <button class="btn btn-warning pull-left" id="daterange3-btn">
+                                                    <i class="fa fa-calendar"></i> 
+                                                    <i class="fa fa-caret-down"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <div class="inner">
-                                    <h3>
-                                        44
-                                    </h3>
+                                   <h4><?= $data['top_education'] ?>&nbsp;</h4>
                                     <p>
-                                        User Registrations
+                                        Top Education
                                     </p>
                                 </div>
-                                <div class="icon">
-                                    <i class="ion ion-person-add"></i>
-                                </div>
+                                
                                 <a href="#" class="small-box-footer">
-                                    More info <i class="fa fa-arrow-circle-right"></i>
+                                   <?= $this->admin_model->get_format_param_type($this->session->userdata('param3_type')) ?>
                                 </a>
                             </div>
                         </div><!-- ./col -->
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-red">
+                                <div class="toggle_dashboard">
+                                        <!--<div class="btn-group">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Today</a></li>
+                                                <li><a href="#">Does not fit the criteria</a></li>
+                                            </ul>
+                                        </div>  -->
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <button class="btn btn-danger pull-left" id="daterange4-btn">
+                                                    <i class="fa fa-calendar"></i> 
+                                                    <i class="fa fa-caret-down"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <div class="inner">
-                                    <h3>
-                                        65
-                                    </h3>
+                                   <h4><?= $data['top_city'] ?>&nbsp;</h4>
                                     <p>
-                                        Unique Visitors
+                                        Top City
                                     </p>
                                 </div>
-                                <div class="icon">
-                                    <i class="ion ion-pie-graph"></i>
-                                </div>
+                                
                                 <a href="#" class="small-box-footer">
-                                    More info <i class="fa fa-arrow-circle-right"></i>
+                                   <?= $this->admin_model->get_format_param_type($this->session->userdata('param4_type')) ?>
                                 </a>
                             </div>
                         </div><!-- ./col -->
@@ -143,20 +426,21 @@
                             <!-- AREA CHART -->
                             <div class="box box-primary">
                                 <div class="box-header">
-                                    <h3 class="box-title">Area Chart</h3>
+                                    <h3 class="box-title">Total Applications</h3>
                                 </div>
                                 <div class="box-body chart-responsive">
-                                    <div class="chart" id="revenue-chart" style="height: 300px;"></div>
+                                    <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
 
                             <!-- DONUT CHART -->
                             <div class="box box-danger">
                                 <div class="box-header">
-                                    <h3 class="box-title">Donut Chart</h3>
+                                    <h3 class="box-title">Top 10 Education</h3>
                                 </div>
                                 <div class="box-body chart-responsive">
-                                    <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+                                    <div id="container3" style="height: 400px"></div>
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
                             
@@ -165,20 +449,21 @@
                             <!-- LINE CHART -->
                             <div class="box box-info">
                                 <div class="box-header">
-                                    <h3 class="box-title">Line Chart</h3>
+                                    <h3 class="box-title">Top 10 Position</h3>
                                 </div>
                                 <div class="box-body chart-responsive">
-                                    <div class="chart" id="line-chart" style="height: 300px;"></div>
+                                   <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
 
                             <!-- BAR CHART -->
                             <div class="box box-success">
                                 <div class="box-header">
-                                    <h3 class="box-title">Bar Chart</h3>
+                                    <h3 class="box-title">Top 10 City</h3>
                                 </div>
                                 <div class="box-body chart-responsive">
-                                    <div class="chart" id="bar-chart" style="height: 300px;"></div>
+                                    <div id="container4" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
 
@@ -186,97 +471,13 @@
                     </div><!-- /.row -->
 
                 </section><!-- /.content -->
-                <script type="text/javascript">
-            $(function() {
-                "use strict";
-
-                // AREA CHART
-                var area = new Morris.Area({
-                    element: 'revenue-chart',
-                    resize: true,
-                    data: [
-                        {y: '2011 Q1', item1: 2666, item2: 2666},
-                        {y: '2011 Q2', item1: 2778, item2: 2294},
-                        {y: '2011 Q3', item1: 4912, item2: 1969},
-                        {y: '2011 Q4', item1: 3767, item2: 3597},
-                        {y: '2012 Q1', item1: 6810, item2: 1914},
-                        {y: '2012 Q2', item1: 5670, item2: 4293},
-                        {y: '2012 Q3', item1: 4820, item2: 3795},
-                        {y: '2012 Q4', item1: 15073, item2: 5967},
-                        {y: '2013 Q1', item1: 10687, item2: 4460},
-                        {y: '2013 Q2', item1: 8432, item2: 5713}
-                    ],
-                    xkey: 'y',
-                    ykeys: ['item1', 'item2'],
-                    labels: ['Item 1', 'Item 2'],
-                    lineColors: ['#a0d0e0', '#3c8dbc'],
-                    hideHover: 'auto'
-                });
-
-                // LINE CHART
-                var line = new Morris.Line({
-                    element: 'line-chart',
-                    resize: true,
-                    data: [
-                        {y: '2011 Q1', item1: 2666},
-                        {y: '2011 Q2', item1: 2778},
-                        {y: '2011 Q3', item1: 4912},
-                        {y: '2011 Q4', item1: 3767},
-                        {y: '2012 Q1', item1: 6810},
-                        {y: '2012 Q2', item1: 5670},
-                        {y: '2012 Q3', item1: 4820},
-                        {y: '2012 Q4', item1: 15073},
-                        {y: '2013 Q1', item1: 10687},
-                        {y: '2013 Q2', item1: 8432}
-                    ],
-                    xkey: 'y',
-                    ykeys: ['item1'],
-                    labels: ['Item 1'],
-                    lineColors: ['#3c8dbc'],
-                    hideHover: 'auto'
-                });
-
-                //DONUT CHART
-                var donut = new Morris.Donut({
-                    element: 'sales-chart',
-                    resize: true,
-                    colors: ["#3c8dbc", "#f56954", "#00a65a"],
-                    data: [
-                        {label: "Download Sales", value: 12},
-                        {label: "In-Store Sales", value: 30},
-                        {label: "Mail-Order Sales", value: 20}
-                    ],
-                    hideHover: 'auto'
-                });
-                //BAR CHART
-                var bar = new Morris.Bar({
-                    element: 'bar-chart',
-                    resize: true,
-                    data: [
-                        {y: '2006', a: 100, b: 90},
-                        {y: '2007', a: 75, b: 65},
-                        {y: '2008', a: 50, b: 40},
-                        {y: '2009', a: 75, b: 65},
-                        {y: '2010', a: 50, b: 40},
-                        {y: '2011', a: 75, b: 65},
-                        {y: '2012', a: 100, b: 90}
-                    ],
-                    barColors: ['#00a65a', '#f56954'],
-                    xkey: 'y',
-                    ykeys: ['a', 'b'],
-                    labels: ['CPU', 'DISK'],
-                    hideHover: 'auto'
-                });
-            });
-        </script>
-                 <!-- Morris.js charts -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-        <script src="<?= site_url() ?>assets/admin/js/plugins/morris/morris.min.js" type="text/javascript"></script>
+               
+             
 
 <script type="text/javascript">
                   
             $(function() {
-              
+                // number of applications
                 $('#daterange-btn').daterangepicker(
                         {
                             ranges: {
@@ -295,21 +496,114 @@
                     /*
                      var interest = $('.ranges ul').find('li.active');
                     console.dir($('.ranges ul'));
-                        alert(interest);*/
-
+                        alert(interest);
+                    */
                         var target = event.target || event.srcElement;
                         param1_type = (event.target.innerHTML);
-                    
+
 
                     //alert(ranges());
                     window.location.href = '<?= site_url() ?>admin/search/1/'+ date_value+'/'+param1_type;
-                }
+                    }
                 );
 
+                // top position
+                $('#daterange2-btn').daterangepicker(
+                        {
+                            ranges: {
+                                'Today': [moment(), moment()],
+                                'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                                'This week': [moment().subtract('days', 6), moment()],
+                                //'Last 30 Days': [moment().subtract('days', 29), moment()],
+                                'This month': [moment().startOf('month'), moment().endOf('month')],
+                                //'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                            },
+                            startDate: moment().subtract('days', 29),
+                            endDate: moment()
+                        },
+                function(start, end) {
+                    var date_value = (start.format('YYYY-MM-DD') + '_' + end.format('YYYY-MM-DD'));
+                    /*
+                     var interest = $('.ranges ul').find('li.active');
+                    console.dir($('.ranges ul'));
+                        alert(interest);
+                    */
+                        var target = event.target || event.srcElement;
+                        param2_type = (event.target.innerHTML);
 
+
+                    //alert(ranges());
+                    window.location.href = '<?= site_url() ?>admin/search/2/'+ date_value+'/'+param2_type;
+                    }
+                );
+
+                // top education
+                $('#daterange3-btn').daterangepicker(
+                        {
+                            ranges: {
+                                'Today': [moment(), moment()],
+                                'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                                'This week': [moment().subtract('days', 6), moment()],
+                                //'Last 30 Days': [moment().subtract('days', 29), moment()],
+                                'This month': [moment().startOf('month'), moment().endOf('month')],
+                                //'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                            },
+                            startDate: moment().subtract('days', 29),
+                            endDate: moment()
+                        },
+                function(start, end) {
+                    var date_value = (start.format('YYYY-MM-DD') + '_' + end.format('YYYY-MM-DD'));
+                    /*
+                     var interest = $('.ranges ul').find('li.active');
+                    console.dir($('.ranges ul'));
+                        alert(interest);
+                    */
+                        var target = event.target || event.srcElement;
+                        param3_type = (event.target.innerHTML);
+
+
+                    //alert(ranges());
+                    window.location.href = '<?= site_url() ?>admin/search/3/'+ date_value+'/'+param3_type;
+                    }
+                );
+
+                // top city
+                $('#daterange4-btn').daterangepicker(
+                        {
+                            ranges: {
+                                'Today': [moment(), moment()],
+                                'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                                'This week': [moment().subtract('days', 6), moment()],
+                                //'Last 30 Days': [moment().subtract('days', 29), moment()],
+                                'This month': [moment().startOf('month'), moment().endOf('month')],
+                                //'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                            },
+                            startDate: moment().subtract('days', 29),
+                            endDate: moment()
+                        },
+                function(start, end) {
+                    var date_value = (start.format('YYYY-MM-DD') + '_' + end.format('YYYY-MM-DD'));
+                    /*
+                     var interest = $('.ranges ul').find('li.active');
+                    console.dir($('.ranges ul'));
+                        alert(interest);
+                    */
+                        var target = event.target || event.srcElement;
+                        param4_type = (event.target.innerHTML);
+
+
+                    //alert(ranges());
+                    window.location.href = '<?= site_url() ?>admin/search/4/'+ date_value+'/'+param4_type;
+                    }
+                );
            
             });
 
 
         </script>
+
+<!-- highchart -->
+<script src="<?= site_url() ?>assets/admin/js/highchart/highcharts.js"></script>
+<script src="<?= site_url() ?>assets/admin/js/highchart/exporting.js"></script>
+<script src="<?= site_url() ?>assets/admin/js/highchart/highcharts-3d.js"></script>
         
