@@ -61,7 +61,7 @@
                     
                 <li <?php if($this->session->userdata('menu_active') == 2){ echo "class='active'"; } ?>>
                             <a href="<?= site_url('admin_test_question') ?>">
-                                <i class="fa fa-circle"></i>
+                                <i class="fa fa-edit"></i>
                                 <span>Psychological Test</span>
                                
                             </a>
@@ -70,7 +70,7 @@
 
                     <li <?php if($this->session->userdata('menu_active') == 3){ echo "class='active'"; } ?>>
                             <a href="<?= site_url('admin_application') ?>">
-                                <i class="fa fa-circle"></i>
+                                <i class="fa fa-book"></i>
                                 <span>Application</span>
                                
                             </a>

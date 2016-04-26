@@ -172,7 +172,17 @@ class Admin_application extends CI_Controller {
 			$list_history = $this->admin_application_model->list_history($id);
 
 			
+			if($data['basic_info_test_status']==1){
 
+
+				$option_a = $this->admin_application_model->get_option_a($id);
+				$option_b = $this->admin_application_model->get_option_b($id);
+				$option_all = $this->admin_application_model->get_option_all($id);
+
+				$data['option_a'] = $option_a / $option_all * 100;
+				$data['option_b'] = $option_b / $option_all * 100;
+
+			}
 			
 			
 			$this->load->view('admin_layout/header', array( 'data_head' => $data_head, 'data_user' => $data_user));
@@ -254,6 +264,11 @@ class Admin_application extends CI_Controller {
 	        	$ci->email->attach($_SERVER["DOCUMENT_ROOT"].'/dragon_recruitment/assets/admin/file/'.$data['position_file2']);
 	        }else if($status_id == 7){
 	        	$ci->email->attach($_SERVER["DOCUMENT_ROOT"].'/dragon_recruitment/assets/admin/file/'.$data['position_file3']);
+	        }
+
+	        if($status_id == 8){
+	        	$data['link_test'] = '<a href="'.site_url().'psychological_test/form/'.$basic_info_id.'" style="font-weight:bold; color:#3C8DBC">LINK TEST</a>';
+
 	        }
 	       
 	        $message=$this->load->view('admin_application/email_notification', array('data' => $data, 'list' => $list), TRUE);

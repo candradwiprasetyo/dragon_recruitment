@@ -93,6 +93,7 @@ class Admin_test_question extends CI_Controller {
 			for($i=1; $i<=2; $i++){
 				$id_option = $this->input->post('i_option_hidden'.$i);
 				$data_option['question_option_name']	= $this->input->post('i_option'.$i);
+				$data_option['question_option_number']	= $i;
 				$this->admin_test_question_model->update_option($data_option, $id_option);
 			}
 
@@ -105,6 +106,7 @@ class Admin_test_question extends CI_Controller {
 			for($i=1; $i<=2; $i++){
 				$data_option['question_id']				= $question_id;
 				$data_option['question_option_name']	= $this->input->post('i_option'.$i);
+				$data_option['question_option_number']	= $i;
 				$this->admin_test_question_model->create_option($data_option);
 			}
 

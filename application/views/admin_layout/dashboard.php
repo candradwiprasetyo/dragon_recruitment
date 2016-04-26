@@ -150,7 +150,7 @@ $(function () {
             }
         },
         series: [{
-            name: 'Delivered amount',
+            name: 'Total ',
             data: [
                 <?php 
                 foreach($list_top_ten_education as $row_top_ten_education): ?>

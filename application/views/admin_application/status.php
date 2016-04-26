@@ -67,6 +67,27 @@
                                                     <div class="timeline-item">
                                                         <span class="time"><?= $this->access->format_date($row_history['application_history_date']) ?></span>
                                                         <div class="timeline-header no-border"><?= $row_history['status_name'] ?></div>
+
+                                                        <?php
+                                                        if($row_history['status_id']==8){
+                                                            if($data['basic_info_test_status']==1){
+                                                        ?>
+                                                        <div class="timeline-body">
+
+                                                                Applicant had to fill a psychological test at <?= $this->access->format_date($data['basic_info_test_date']) ?>.
+                                                                <br>
+                                                                Result : <br>
+
+                                                                A. <?= number_format($data['option_a'],2)." %"; ?><br>
+                                                                B. <?= number_format($data['option_b'],2)." %"; ?>
+                                                        </div>
+                                                        <div class="timeline-footer">
+                                                          <a target="_blank" class="btn btn-primary btn-xs" href="<?= site_url() ?>psychological_test/view/<?= $data['basic_info_id'] ?>">View test</a>
+                                                        </div>
+                                                        <?php
+                                                        }
+                                                        }
+                                                        ?>
                                                        
                                                     </div>
                                                 </li>

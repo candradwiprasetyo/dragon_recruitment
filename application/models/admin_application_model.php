@@ -152,7 +152,7 @@ class Admin_application_model extends CI_Model{
 		$query = "select a.*, b.education_type_name 
 					from educations a
 					join education_types b on b.education_type_id = a.education_type_id
-					where a.education_basic_info_id
+					where a.education_basic_info_id = '$id'
 					order by education_id
 					";
         $query = $this->db->query($query);
@@ -168,7 +168,7 @@ class Admin_application_model extends CI_Model{
 		$query = "select a.*, b.position_level_name 
 					from work_experiences a
 					join position_levels b on b.position_level_id = a.work_experience_position_level_id
-					where a.work_experience_basic_info_id
+					where a.work_experience_basic_info_id = '$id'
 					order by work_experience_id
 					";
         $query = $this->db->query($query);
@@ -184,7 +184,7 @@ class Admin_application_model extends CI_Model{
 		$query = "select a.*, b.tool_name 
 					from resume_tools a
 					join tools b on b.tool_id = a.tool_id
-					where a.resume_tool_basic_info_id
+					where a.resume_tool_basic_info_id = '$id'
 					order by resume_tool_id
 					";
         $query = $this->db->query($query);
@@ -200,7 +200,7 @@ class Admin_application_model extends CI_Model{
 		$query = "select a.*, b.hard_skill_type_name 
 					from hard_skills a
 					join hard_skill_types b on b.hard_skill_type_id = a.hard_skill_type_id
-					where a.basic_info_id
+					where a.basic_info_id = '$id'
 					order by hard_skill_id
 					";
         $query = $this->db->query($query);
@@ -216,7 +216,7 @@ class Admin_application_model extends CI_Model{
 		$query = "select a.*, b.soft_skill_type_name 
 					from soft_skills a
 					join soft_skill_types b on b.soft_skill_type_id = a.soft_skill_type_id
-					where a.basic_info_id
+					where a.basic_info_id = '$id'
 					order by soft_skill_id
 					";
         $query = $this->db->query($query);
@@ -229,10 +229,10 @@ class Admin_application_model extends CI_Model{
 	}
 
 	function list_history($id) {
-		$query = "select a.*, b.status_name 
+		$query = "select a.*, b.status_id, b.status_name 
 					from application_histories a
 					join status b on b.status_id = a.application_history_status_id
-					where a.basic_info_id
+					where a.basic_info_id = '$id'
 					order by application_history_id
 					";
         $query = $this->db->query($query);
@@ -261,7 +261,9 @@ class Admin_application_model extends CI_Model{
 
 	function get_data_status($id)
 	{
-		$query = "SELECT b.status_name, 
+		$query = "SELECT a.basic_info_id, 
+						b.status_id,
+						b.status_name, 
 						b.status_email_content,
 						d.position_file1,
 						d.position_file2,
@@ -278,5 +280,51 @@ class Admin_application_model extends CI_Model{
 		foreach($query->result_array() as $row)	$result = ($row); // render dulu dunk!
 		return $result; 
 	}
+
+	function get_option_a($id)
+	{
+		$sql = "SELECT count(a.answer_basic_info_id) as result
+				FROM answers a
+				WHERE answer_basic_info_id = '$id'
+				AND answer_value = '1'
+				";
+		
+		$query = $this->db->query($sql);
+		
+		$result = null;
+		foreach ($query->result_array() as $row) $result = ($row);
+		return $result['result'];
+	}
+
+	function get_option_b($id)
+	{
+		$sql = "SELECT count(a.answer_basic_info_id) as result
+				FROM answers a
+				WHERE answer_basic_info_id = '$id'
+				AND answer_value = '2'
+				";
+		
+		$query = $this->db->query($sql);
+		
+		$result = null;
+		foreach ($query->result_array() as $row) $result = ($row);
+		return $result['result'];
+	}
+
+	function get_option_all($id)
+	{
+		$sql = "SELECT count(a.answer_basic_info_id) as result
+				FROM answers a
+				WHERE answer_basic_info_id = '$id'
+				";
+		
+		$query = $this->db->query($sql);
+		
+		$result = null;
+		foreach ($query->result_array() as $row) $result = ($row);
+		return $result['result'];
+	}
+
+	
 	
 }
