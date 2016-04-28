@@ -1,9 +1,23 @@
+<!-- Add fancyBox main JS and CSS files -->
+<script type="text/javascript" src="<?= base_url() ?>assets/admin/js/fancybox/jquery.fancybox.js?v=2.1.5"></script>
+<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/admin/js/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    /*
+     *  Simple image gallery. Uses default settings
+     */
+
+    $('.fancybox').fancybox();
+
+  });
+</script>
 <div class="box box-info">
                                 <div class="box-header">
                                     <h3 class="box-title">Secondary Info</h3>
                                      <div class="box-tools pull-right">
                                         <button class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                       
+
                                     </div>
                                 </div>
                                 <div class="box-body chart-responsive">
@@ -123,14 +137,14 @@
                                         </div>
                                         <div class="col-xs-8">
                                             <div class="form-group">
-                                             <a href="#" class="btn btn-primary">VIEW</a>  
+                                             <a href="<?= base_url() ?>assets/images/email_reference/<?= $data['secondary_info_reference_letter'] ?>" class="btn btn-primary fancybox">VIEW</a>
                                             </div>
                                         </div>
                                     </div>
-                                 
 
 
-                                  
+
+
 
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->

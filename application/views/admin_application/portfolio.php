@@ -5,7 +5,7 @@
                                     <h3 class="box-title">Portfolio</h3>
                                     <div class="box-tools pull-right">
                                         <button class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                       
+
                                     </div>
                                 </div>
                                 <div class="box-body chart-responsive">
@@ -100,8 +100,11 @@
 
                                     <div class="row">
                                         <div class="col-sm-4">
-                                    <img src="<?= base_url() ?>assets/images/portfolio/<?= $data['portfolio_file'] ?>" class="application_photo">
-                                     <button type="submit" class="btn btn-primary btn-block" style="margin-top:10px;">VIEW DETAIL</button>  
+                                        
+                                            <embed width="160" height="160" name="plugin" src="<?= base_url() ?>assets/images/portfolio/<?= $data['portfolio_file'] ?>" type="application/pdf">
+
+                                    <!--<img src="<?= base_url() ?>assets/images/portfolio/<?= $data['portfolio_file'] ?>" class="application_photo">
+                                    --><a target="_blank" href="<?= $data_head['view_portfolio'] ?>" class="btn btn-primary btn-block" style="margin-top:10px;">VIEW DETAIL</a>
                                     </div>
                                     <div class="col-sm-8">
 
@@ -110,7 +113,7 @@
                                             <i class="fa fa-globe fa-1x"></i>&nbsp;&nbsp;&nbsp;
                                             <a href="<?= $data['portfolio_link'] ?>" target="_blank"><?= $data['portfolio_link'] ?></a>
                                         </div>
-                                        <?php 
+                                        <?php
                                         }
                                         if($data['portfolio_linkedin']){
                                         ?>
@@ -118,7 +121,7 @@
                                         <i class="fa fa-linkedin fa-1x"></i>&nbsp;&nbsp;&nbsp;
                                         <a href="<?= $data['portfolio_linkedin'] ?>" target="_blank"><?= $data['portfolio_linkedin'] ?></a>
                                         </div>
-                                        <?php 
+                                        <?php
                                         }
                                         if($data['portfolio_behance']){
                                         ?>
@@ -126,7 +129,7 @@
                                         <i class="fa fa-behance fa-1x"></i>&nbsp;&nbsp;&nbsp;
                                         <a href="<?= $data['portfolio_behance'] ?>" target="_blank"><?= $data['portfolio_behance'] ?></a>
                                         </div>
-                                        <?php 
+                                        <?php
                                         }
                                         if($data['portfolio_facebook']){
                                         ?>
@@ -134,7 +137,7 @@
                                         <i class="fa fa-facebook fa-1x"></i>&nbsp;&nbsp;&nbsp;
                                         <a href="<?= $data['portfolio_facebook'] ?>" target="_blank"><?= $data['portfolio_facebook'] ?></a>
                                         </div>
-                                        <?php 
+                                        <?php
                                         }
                                         if($data['portfolio_instagram']){
                                         ?>
@@ -142,9 +145,9 @@
                                         <i class="fa fa-instagram fa-1x"></i>&nbsp;&nbsp;&nbsp;
                                         <a href="<?= $data['portfolio_instagram'] ?>" target="_blank"><?= $data['portfolio_instagram'] ?></a>
                                         </div>
-                                        <?php 
+                                        <?php
                                         }
-                                        
+
                                         ?>
                                     </div>
                                     </div>
