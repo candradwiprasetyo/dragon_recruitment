@@ -54,8 +54,9 @@
                         <li><a href="<?= site_url('admin_soft_skill_type') ?>"><i class="fa fa-circle-o"></i>Soft Skill</a></li>
                         <li><a href="<?= site_url('admin_allergy') ?>"><i class="fa fa-circle-o"></i>Allergy</a></li>
                         <li><a href="<?= site_url('admin_sport') ?>"><i class="fa fa-circle-o"></i>Sport</a></li>
-                        <li><a href="<?= site_url('admin_computer') ?>"><i class="fa fa-circle-o"></i>Tools</a></li>
-                        <li><a href="<?= site_url('admin_status') ?>"><i class="fa fa-circle-o"></i>Status</a></li>
+                        <li><a href="<?= site_url('admin_computer') ?>"><i class="fa fa-circle-o"></i>Computer</a></li>
+                        <li><a href="<?= site_url('admin_status') ?>"><i class="fa fa-circle-o"></i>Status</a></li>      
+                        <li><a href="<?= site_url('admin_tool') ?>"><i class="fa fa-circle-o"></i>Tools</a></li>
                       </ul>
                     </li>
                     

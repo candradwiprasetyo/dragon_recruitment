@@ -100,7 +100,7 @@
                                         </div>
                                         <div class="col-xs-8">
                                             <div class="form-group">
-                                            <?= "(".$data['license_type'].") ".$data['basic_info_bpjs_number']; ?>
+                                            <?= "(".$data['license_type'].") ".$data['basic_info_license_number']; ?>
                                             </div>
                                         </div>
                                     </div>
